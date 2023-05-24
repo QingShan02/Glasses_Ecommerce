@@ -1,0 +1,43 @@
+package com.fpoly.entity;
+
+import java.io.Serializable;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "users")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private int id;
+	
+	@Column(name = "fullname")
+	private String fullname;
+	
+	@Column(name = "address")
+	private String address;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "number")
+	private String number;
+	
+	@Column(name = "isadmin")
+	private boolean isAdmin;
+}
