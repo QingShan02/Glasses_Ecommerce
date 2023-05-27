@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,9 +33,11 @@ public class ProductDetail implements Serializable {
 	
 	@Column(name = "image")
 	private Integer productId;
-
-	
 	
 	@Column(name = "sizeid")
 	private String sizeId;
+	
+	@ManyToOne
+	@JoinColumn(name = "productid", insertable = false, updatable = false)
+	private Product product;
 }

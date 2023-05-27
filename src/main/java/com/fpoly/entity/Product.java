@@ -1,13 +1,18 @@
 package com.fpoly.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,4 +36,14 @@ public class Product implements Serializable {
 	
 	@Column(name = "producttypeid")
 	private String productTypeId;
+	
+	@Transient
+	private double price;
+	
+	@ManyToOne
+	@JoinColumn(name = "producttypeid", insertable = false, updatable = false)
+	private ProductType productType;
+	
+	@OneToMany(mappedBy = "product")
+	private List<ProductDetail> listPT;
 }

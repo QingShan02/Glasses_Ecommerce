@@ -23,8 +23,8 @@ public class ProductType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private String id;
 	
-	@Column(name = "typename")
-	private String typeName;
+	@Column(name = "name")
+	private String name;
 }

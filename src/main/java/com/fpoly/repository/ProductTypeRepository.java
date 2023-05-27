@@ -7,5 +7,5 @@ import com.fpoly.entity.ProductType;
 
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, Integer> {
-
+	
 }
