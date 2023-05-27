@@ -7,5 +7,5 @@ import com.fpoly.entity.ProductDetail;
 
 @Repository
 public interface ProductDetailRepository extends JpaRepository<ProductDetail, Integer> {
-
+	
 }
