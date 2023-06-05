@@ -20,7 +20,7 @@ public class HomeController {
 	
 	@GetMapping("/index")
 	public String homePage() {
-		System.out.println(service.getAll().toString());
+//		System.out.println(service.getAll().toString());
 		return "index";
 	}
 	
