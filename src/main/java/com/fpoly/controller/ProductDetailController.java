@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProductDetailController {
 	@GetMapping("/detail")
 	public String homePage() {
-		return "detail";
+		return "/detail";
 	}
 }
