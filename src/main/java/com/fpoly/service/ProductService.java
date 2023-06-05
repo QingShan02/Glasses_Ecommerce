@@ -16,4 +16,13 @@ public class ProductService {
 	public List<Product> getAll() {
 		return repo.findAll();
 	}
+
+	public Product getReferenceById(Integer id) {
+		return repo.getReferenceById( id);
+	}
+
+	
+
+	
+	
 }

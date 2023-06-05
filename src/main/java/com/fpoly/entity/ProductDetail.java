@@ -31,11 +31,14 @@ public class ProductDetail implements Serializable {
 	@Column(name = "price")
 	private double price;
 	
-	@Column(name = "image")
-	private Integer productId;
+//	@Column(name = "image")
+//	private Integer productId;
 	
-	@Column(name = "sizeid")
-	private String sizeId;
+	@Column(name = "description")
+	private String description;
+	@ManyToOne
+	@JoinColumn(name = "colorid")
+	private Color color;
 	
 	@ManyToOne
 	@JoinColumn(name = "productid", insertable = false, updatable = false)
