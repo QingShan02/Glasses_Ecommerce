@@ -1,4 +1,6 @@
-<div th:fragment="navbarFragment">
+
+<div th:fragment="navbarFragment" xmlns:th="http://www.thymeleaf.org">
+
 	<div class="container-fluid mb-5">
 		<div class="row border-top px-xl-5">
 			<div class="col-lg-3 d-none d-lg-block">
@@ -14,11 +16,11 @@
 					class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
 					id="navbar-vertical">
 					<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-						<a th:each="pt : ${list}" th:href="@{/shop/__${pt.id}__}"
-							class="nav-item nav-link" th:text="${pt.name}"></a>
+						<label th:each="c : ${categories}"> 
+							<a th:href="${c.id}" th:utext="${c.typeName}" class="nav-item nav-link"></a>
+						</label>
 					</div>
 				</nav>
-
 			</div>
 			<div class="col-lg-9">
 				<nav
@@ -36,13 +38,13 @@
 						id="navbarCollapse">
 						<div class="navbar-nav mr-auto py-0">
 							<a th:href="@{/home/index}" class="nav-item nav-link active">Home</a>
-							<a th:href="@{/shop}" class="nav-item nav-link">Shop</a> 
-							<!-- <a th:href="@{/detail}" class="nav-item nav-link">Shop Detail</a> -->
+							<a th:href="@{/shop}" class="nav-item nav-link">Shop</a> <a
+								th:href="@{/detail}" class="nav-item nav-link">Shop Detail</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle"
 									data-toggle="dropdown">Pages</a>
 								<div class="dropdown-menu rounded-0 m-0">
-									<a th:href="@{/home/cart}" class="dropdown-item">Shopping Cart</a> <a
+									<a th:href="@{/cart}" class="dropdown-item">Shopping Cart</a> <a
 										th:href="@{/home/checkout}" class="dropdown-item">Checkout</a>
 								</div>
 							</div>
