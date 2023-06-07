@@ -35,8 +35,11 @@ public class User implements Serializable {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "number")
-	private String number;
+	@Column(name = "numberphone")
+	private String numberPhone;
+
+	@Column(name = "password")
+	private String password;
 	
 	@Column(name = "isadmin")
 	private boolean isAdmin;
