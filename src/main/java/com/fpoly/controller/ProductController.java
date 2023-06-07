@@ -16,6 +16,7 @@ import com.fpoly.repository.ProductRepository;
 import com.fpoly.repository.ProductTypeRepository;
 import com.fpoly.service.ProductService;
 import com.fpoly.service.ProductTypeService;
+import com.fpoly.utility.CookieUtility;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -32,11 +33,18 @@ public class ProductController {
 	ProductTypeService productTypeService;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	CookieUtility cookie;
 
 	@ModelAttribute("categories")
 	public List<ProductType> getCategories() {
 		List<ProductType> list = pdtResp.findAll();
 		return list;
+	}
+
+	@ModelAttribute("userId")
+	public String getUserId() {
+		return cookie.getValue("userId");
 	}
 
 	@GetMapping({ "/", "/index" })
