@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
-<title>Log in</title>
-
+<title>Form Sign Up</title>
 <!-- Favicon -->
 <link th:href="@{/img/favicon.ico}" rel="icon">
 
@@ -44,7 +44,6 @@
 </style>
 </head>
 <body>
-
 	<!-- Topbar Start -->
 	<div th:include="fragments/header :: headerFragment"></div>
 	<!-- Topbar End -->
@@ -53,44 +52,53 @@
 	<!-- Navbar Start -->
 	<div th:include="fragments/navbar :: navbarFragment"></div>
 	<!-- Navbar End -->
-
-
 	<!-- Page Header Start -->
-	<div class="container-fluid bg-secondary mb-5">
-		<div
-			class="d-flex flex-column align-items-center justify-content-center"
-			style="min-height: 150px">
-			<h1 class="font-weight-semi-bold text-uppercase mb-3">Log in</h1>
-			<div class="d-inline-flex">
-				<p class="m-0">
-					<a href="">Home</a>
-				</p>
-				<p class="m-0 px-2">-</p>
-				<p class="m-0">Log in</p>
-			</div>
+	<div class="bg-secondary d-flex flex-column align-items-center justify-content-center"
+		style="min-height: 150px">
+		<h1 class="font-weight-semi-bold text-uppercase mb-3">Sign Up</h1>
+		<div class="d-inline-flex">
+			<p class="m-0">
+				<a href="">Home</a>
+			</p>
+			<p class="m-0 px-2">-</p>
+			<p class="m-0">SignUp</p>
 		</div>
+	</div>
 	</div>
 	<!-- Page Header End -->
 
-	<div class="container mt-5">
+	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
-				<form th:action="@{/home/login}" method="post">
-					<div class="form-group">
-						<label for="username">Username:</label> <input type="text"
-							class="form-control" id="username" name="username" required>
-					</div>
-					<div class="form-group">
-						<label for="password">Password:</label> <input type="password"
-							class="form-control" id="password" name="password" required>
-					</div>
-					<button type="submit" class="btn btn-primary text-white">Đăng
-						nhập</button>
-				</form>
+				<div class="form-container">
+					<form th:action="@{/home/register}" method="post">
+						<div class="mb-3">
+							<label for="fullName" class="form-label">Họ và tên:</label> <input
+								type="text" class="form-control text-primary" id="fullName" name="fullName"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email:</label> <input
+								type="email" class="form-control text-primary" id="email" name="email"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="phoneNumber" class="form-label">Số điện
+								thoại:</label> <input type="tel" class="form-control text-primary" id="phoneNumber"
+								name="phoneNumber" required>
+						</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Địa chỉ:</label>
+							<textarea class="form-control text-primary" id="address" name="address"
+								rows="3" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary text-white">Sign
+							Up</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-
 	<!-- Footer Start -->
 	<div th:include="fragments/footer :: footerFragment"></div>
 	<!-- Footer End -->

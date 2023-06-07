@@ -43,7 +43,7 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
-
+	
 	@PostMapping("/login")
 	public String checkLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
 		boolean checkLogin = userService.login(username, password);
@@ -54,7 +54,12 @@ public class HomeController {
 
 		return "redirect:/index";
 	}
-
+	@GetMapping("/register")
+	public String signup() {
+		return "register";
+	}
+	
+	
 	@GetMapping("/{id}")
 	public String sort() {
 		return "redirect:/{id}";
