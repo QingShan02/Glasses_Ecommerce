@@ -14,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.entity.ProductType;
 import com.fpoly.repository.ProductTypeRepository;
 import com.fpoly.service.UserService;
+import com.fpoly.utility.CookieUtility;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 	@Autowired
 	ProductTypeRepository pdtResp;
-
+	@Autowired
+	CookieUtility cookie;
 	@Autowired
 	UserService userService;
 
 	@GetMapping("/index")
 	public String homePage(Model model) {
+		System.out.println(cookie.getValue("userId"));
 		return "/index";
 	}
 
@@ -47,11 +50,15 @@ public class HomeController {
 	@PostMapping("/login")
 	public String checkLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
 		boolean checkLogin = userService.login(username, password);
-
 		if (checkLogin == false) {
 			return "login";
 		}
+		return "redirect:/home/index";
+	}
 
+	@GetMapping("/logout")
+	public String logout() {
+		userService.logout();
 		return "redirect:/home/index";
 	}
 
@@ -64,5 +71,10 @@ public class HomeController {
 	public List<ProductType> getCategories() {
 		List<ProductType> list = pdtResp.findAll();
 		return list;
+	}
+
+	@ModelAttribute("userId")
+	public String getUserId() {
+		return cookie.getValue("userId");
 	}
 }

@@ -16,8 +16,9 @@
 					class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
 					id="navbar-vertical">
 					<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-						<label th:each="c : ${categories}"> 
-							<a th:href="@{'/shop/' + ${c.id}}" th:utext="${c.typeName}" class="nav-item nav-link"></a>
+						<label th:each="c : ${categories}"> <a
+							th:href="@{'/shop/' + ${c.id}}" th:utext="${c.typeName}"
+							class="nav-item nav-link"></a>
 						</label>
 					</div>
 				</nav>
@@ -50,9 +51,16 @@
 							</div>
 							<a th:href="@{/home/contact}" class="nav-item nav-link">Contact</a>
 						</div>
-						<div class="navbar-nav ml-auto py-0">
-							<a th:href="@{/home/login}" class="nav-item nav-link">Login</a> 
-							<a th:href="@{/home/register}" class="nav-item nav-link">Register</a>
+
+						<div th:unless="${userId}"
+							class="navbar-nav ml-auto py-0">
+							<a th:href="@{/home/login}" class="nav-item nav-link">Login</a> <a
+								th:href="@{/home/register}" class="nav-item nav-link">Register</a>
+						</div>
+						<div th:if="${userId}"
+							class="navbar-nav ml-auto py-0">
+							<a th:href="@{/home/edit}" class="nav-item nav-link">Edit Profile</a>
+							<a th:href="@{/home/logout}" class="nav-item nav-link">Logout</a> 
 						</div>
 					</div>
 				</nav>
