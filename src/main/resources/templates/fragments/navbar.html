@@ -17,7 +17,7 @@
 					id="navbar-vertical">
 					<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
 						<label th:each="c : ${categories}"> 
-							<a th:href="${c.id}" th:utext="${c.typeName}" class="nav-item nav-link"></a>
+							<a th:href="@{'/shop/' + ${c.id}}" th:utext="${c.typeName}" class="nav-item nav-link"></a>
 						</label>
 					</div>
 				</nav>
