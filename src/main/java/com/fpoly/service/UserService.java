@@ -1,12 +1,14 @@
 package com.fpoly.service;
 
-import com.fpoly.entity.User;
-import com.fpoly.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.fpoly.entity.User;
+import com.fpoly.repository.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UserService {
@@ -32,5 +34,9 @@ public class UserService {
         });
 
         return checkUser[0];
+    }
+    
+    public User save(User u) {
+    	return userRepository.save(u);
     }
 }
