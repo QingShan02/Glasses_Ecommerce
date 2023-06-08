@@ -3,12 +3,8 @@ package com.fpoly.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,8 +30,18 @@ public class Cart implements Serializable {
 	private Date createdAt = new Date();
 	
 	@Column(name = "productdetailid")
-	private int productDetailId;
+	private Integer productDetailId;
 	
 	@Column(name = "userid")
 	private int userId;
+
+	@Transient
+	public double getTotal() {
+		return productDetail.getPrice() * quantity;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "productdetailid", insertable = false, updatable = false)
+	@JsonIgnore
+	ProductDetail productDetail;
 }

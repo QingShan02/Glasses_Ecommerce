@@ -2,6 +2,7 @@ package com.fpoly.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,11 +37,20 @@ public class ProductDetail implements Serializable {
 	
 	@Column(name = "description")
 	private String description;
+
+	@Column(name = "colorid")
+	private String colorId;
+
+	@Column(name = "productid")
+	private Integer productId;
+
 	@ManyToOne
-	@JoinColumn(name = "colorid")
-	private Color color;
+	@JoinColumn(name = "colorid", insertable = false, updatable = false)
+	@JsonIgnore
+	Color color;
 	
 	@ManyToOne
 	@JoinColumn(name = "productid", insertable = false, updatable = false)
-	private Product product;
+	@JsonIgnore
+	Product product;
 }

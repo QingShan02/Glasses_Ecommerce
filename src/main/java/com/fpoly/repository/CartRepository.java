@@ -5,7 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.fpoly.entity.Cart;
 
+import java.util.List;
+
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
     Cart findByProductDetailId(Integer productDetailId);
+
+    List<Cart> findByUserId(Integer userId);
 }

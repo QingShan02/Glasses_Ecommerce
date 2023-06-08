@@ -15,7 +15,6 @@ public class CartService {
     public void addToCart(Cart cart) {
         Cart existingCart = cartRepository.findByProductDetailId(cart.getProductDetailId());
         if (existingCart != null) {
-            System.out.println(existingCart);
             existingCart.setQuantity(existingCart.getQuantity() + cart.getQuantity());
             cartRepository.save(existingCart);
         } else {
@@ -24,7 +23,7 @@ public class CartService {
     }
 
 
-    public List<Cart> getAll() {
-        return cartRepository.findAll();
+    public List<Cart> getAll(Integer userId) {
+        return cartRepository.findByUserId(userId);
     }
 }
