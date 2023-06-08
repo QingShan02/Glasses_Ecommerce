@@ -12,31 +12,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
-=======
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
->>>>>>> origin/son
 
 import com.fpoly.entity.ProductType;
 import com.fpoly.entity.User;
 import com.fpoly.repository.ProductTypeRepository;
-<<<<<<< HEAD
 import com.fpoly.service.UserService;
-=======
+
 import com.fpoly.service.MailService;
 import com.fpoly.service.UserService;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
->>>>>>> origin/son
+import com.fpoly.utility.CookieUtility;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 	@Autowired
 	ProductTypeRepository pdtResp;
-
+	@Autowired
+	CookieUtility cookie;
 	@Autowired
 	UserService userService;
 
@@ -51,6 +47,7 @@ public class HomeController {
 
 	@GetMapping("/index")
 	public String homePage(Model model) {
+		System.out.println(cookie.getValue("userId"));
 		return "/index";
 	}
 
@@ -72,11 +69,15 @@ public class HomeController {
 	@PostMapping("/login")
 	public String checkLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
 		boolean checkLogin = userService.login(username, password);
-
 		if (checkLogin == false) {
 			return "login";
 		}
+		return "redirect:/home/index";
+	}
 
+	@GetMapping("/logout")
+	public String logout() {
+		userService.logout();
 		return "redirect:/home/index";
 	}
 
@@ -84,8 +85,6 @@ public class HomeController {
 	public String signup(Model model) {
 		return "register";
 	}
-<<<<<<< HEAD
-=======
 
 	@PostMapping("/register")
 	public String signupBtn(@ModelAttribute User user) throws IOException, MessagingException {
@@ -124,11 +123,15 @@ public class HomeController {
 	public String sort() {
 		return "redirect:/{id}";
 	}
->>>>>>> origin/son
 
 	@ModelAttribute("categories")
 	public List<ProductType> getCategories() {
 		List<ProductType> list = pdtResp.findAll();
 		return list;
+	}
+
+	@ModelAttribute("userId")
+	public String getUserId() {
+		return cookie.getValue("userId");
 	}
 }
