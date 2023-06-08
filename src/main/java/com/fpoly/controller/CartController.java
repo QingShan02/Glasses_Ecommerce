@@ -30,7 +30,7 @@ public class CartController {
 	public String saveProduct(Cart cart) {
 		Integer userId = Integer.parseInt(cookie.getValue("userId"));
 		cart.setUserId(userId);
-//		System.out.println(cookie.getValue("userId"));
+//		System.out.println(cart.toString());
 		cartService.addToCart(cart);
 		return "cart";
 	}

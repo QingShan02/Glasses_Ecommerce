@@ -52,93 +52,95 @@
 
 
 <!-- Cart Start -->
-<div class="container-fluid pt-5">
-    <div class="row px-xl-5">
-        <div class="col-lg-8 table-responsive mb-5">
-            <form th:action="@{/order/save}" method="post">
-                <table class="table table-bordered text-center mb-0">
-                    <thead class="bg-secondary text-dark">
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody class="align-middle">
-                    <tr th:each="item : ${cartItems}">
-                        <td>
-                            <!-- <img th:src="@{${item.product.imageUrl}}" alt="" style="width: 50px;"> -->
-                            <span th:text="${item.productDetail.product.name}"></span>
-                        </td>
-                        <td th:text="${item.productDetail.price}"></td>
-                        <td>
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
+<form th:action="@{/order/save}" method="post">
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <form>
+                    <table class="table table-bordered text-center mb-0">
+                        <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                        <tr th:each="item : ${cartItems}">
+                            <td>
+                                <!-- <img th:src="@{${item.product.imageUrl}}" alt="" style="width: 50px;"> -->
+                                <span th:text="${item.productDetail.product.name}"></span>
+                            </td>
+                            <td th:text="${item.productDetail.price}"></td>
+                            <td>
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-minus">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" th:value="${item.quantity}">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-plus">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" th:value="${item.quantity}">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
+                            </td>
+                            <td th:text="${item.total + ' VND'}"></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="mb-5" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">Apply Coupon</button>
                                 </div>
                             </div>
-                        </td>
-                        <td th:text="${item.total + ' VND'}"></td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div>
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-lg-12">
-                    <form class="mb-5" action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">Apply Coupon</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                                <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card border-secondary mb-5">
-                        <div class="card-header bg-secondary border-0">
-                            <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3 pt-1">
-                                <h6 class="font-weight-medium">Subtotal</h6>
-                                <h6 class="font-weight-medium" th:text="${totalOrders} + ' VND'"></h6>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                    <h6 class="font-weight-medium">Subtotal</h6>
+                                    <h6 class="font-weight-medium" th:text="${totalOrders} + ' VND'"></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-medium">Shipping</h6>
+                                    <h6 class="font-weight-medium">35000 VND</h6>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <h6 class="font-weight-medium">Shipping</h6>
-                                <h6 class="font-weight-medium">35000 VND</h6>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <h5 class="font-weight-bold">Total</h5>
+                                    <h5 class="font-weight-bold" th:text="${totalOrders + 35000} + ' VND'"></h5>
+                                </div>
+                                <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                             </div>
-                        </div>
-                        <div class="card-footer border-secondary bg-transparent">
-                            <div class="d-flex justify-content-between mt-2">
-                                <h5 class="font-weight-bold">Total</h5>
-                                <h5 class="font-weight-bold" th:text="${totalOrders + 35000} + ' VND'"></h5>
-                            </div>
-                            <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <!-- Cart End -->
 
