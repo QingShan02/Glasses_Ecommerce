@@ -16,22 +16,20 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "cartid")
-//    private Integer cartId;
+    @Column(name = "userid")
+    private int userId;
 
-    @Column(name = "paymentmethodid")
-    private Integer paymentmethodId = 1;
+    @Column(name = "totalAmount")
+    private double totalOrders;
+
+    @Column(name = "shippingaddress")
+    private double shippingAddress;
+
+    @Column(name = "orderdate")
+    private double orderDate;
 
     @Column(name = "statusid")
     private String statusId;
-
-    @Column(name = "totalprice")
-    private double totalOrders;
-
-//    @ManyToOne
-//    @JoinColumn(name = "cartid", insertable = false, updatable = false)
-//    @JsonIgnore
-//    Cart cart;
 
     @ManyToOne
     @JoinColumn(name = "statusid", insertable = false, updatable = false)
