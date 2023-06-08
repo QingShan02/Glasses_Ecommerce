@@ -11,6 +11,7 @@ public class OrderService {
     OrderRepository orderRepository;
 
     public void ordering(Order order) {
+        order.setStatusId("ST1");
         orderRepository.save(order);
     }
 }

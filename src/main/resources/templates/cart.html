@@ -69,6 +69,9 @@
                         </thead>
                         <tbody class="align-middle">
                         <tr th:each="item : ${cartItems}">
+                            <input type="hidden" name="cartId" th:value="${item.id}">
+                            <input type="hidden" name="totalOrders" th:value="${totalOrders + 35000}">
+
                             <td>
                                 <!-- <img th:src="@{${item.product.imageUrl}}" alt="" style="width: 50px;"> -->
                                 <span th:text="${item.productDetail.product.name}"></span>

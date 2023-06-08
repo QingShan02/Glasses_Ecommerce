@@ -32,7 +32,7 @@ public class CartController {
 		cart.setUserId(userId);
 //		System.out.println(cart.toString());
 		cartService.addToCart(cart);
-		return "cart";
+		return "redirect:/cart/index";
 	}
 
 	@ModelAttribute("totalOrders")

@@ -35,6 +35,9 @@ public class Cart implements Serializable {
 	@Column(name = "userid")
 	private int userId;
 
+	@Column(name = "orderid")
+	private int orderId;
+
 	@Transient
 	public double getTotal() {
 		return productDetail.getPrice() * quantity;
@@ -44,4 +47,9 @@ public class Cart implements Serializable {
 	@JoinColumn(name = "productdetailid", insertable = false, updatable = false)
 	@JsonIgnore
 	ProductDetail productDetail;
+
+	@ManyToOne
+    @JoinColumn(name = "orderid", insertable = false, updatable = false)
+    @JsonIgnore
+    Order order;
 }
