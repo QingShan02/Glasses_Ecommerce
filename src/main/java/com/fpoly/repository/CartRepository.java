@@ -7,5 +7,5 @@ import com.fpoly.entity.Cart;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
-
+    Cart findByProductDetailId(Integer productDetailId);
 }

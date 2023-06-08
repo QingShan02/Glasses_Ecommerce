@@ -1,7 +1,7 @@
 package com.fpoly.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +23,7 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
@@ -31,7 +31,7 @@ public class Cart implements Serializable {
 	private int quantity;
 	
 	@Column(name = "createdat")
-	private Date createdAt;
+	private Date createdAt = new Date();
 	
 	@Column(name = "productdetailid")
 	private int productDetailId;
