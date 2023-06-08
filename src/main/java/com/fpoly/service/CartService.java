@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CartService {
@@ -18,11 +17,11 @@ public class CartService {
     CartRepository cartRepository;
 
     public void addToCart(Cart cart) {
-        Optional<Cart> existingCart = cartRepository.findById(cart.getId());
-        System.out.println(cart.toString());
-        if (existingCart.isPresent()) {
-            existingCart.get().setQuantity(existingCart.get().getQuantity() + cart.getQuantity());
-            cartRepository.save(existingCart.get());
+        Cart existingCart = cartRepository.findByProductDetailId(cart.getProductDetailId());
+        existingCart.setUserId(cart.getUserId());
+        if (existingCart != null) {
+            existingCart.setQuantity(existingCart.getQuantity() + cart.getQuantity());
+            cartRepository.save(existingCart);
         } else {
             cartRepository.save(cart);
         }
