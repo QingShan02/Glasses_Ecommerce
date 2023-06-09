@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "orders")
 @Data
@@ -19,14 +21,17 @@ public class Order {
     @Column(name = "userid")
     private int userId;
 
-    @Column(name = "totalAmount")
+    @Column(name = "totalamount")
     private double totalOrders;
 
     @Column(name = "shippingaddress")
-    private double shippingAddress;
+    private String shippingAddress;
 
     @Column(name = "orderdate")
-    private double orderDate;
+    private Date orderDate = new Date();
+
+    @Column(name = "paymentmethodid")
+    private Integer paymentmethodId;
 
     @Column(name = "statusid")
     private String statusId;

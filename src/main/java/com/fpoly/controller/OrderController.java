@@ -1,5 +1,6 @@
 package com.fpoly.controller;
 
+import com.fpoly.utility.CookieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +16,12 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+
     @PostMapping("/save")
     public String ordering(Model model, Order order) {
-//        System.out.println(order.get);
         orderService.ordering(order);
-        return "redirect:/home/index";
+        model.addAttribute("orderId", order.getId());
+
+        return "forward:/orderDetail/save";
     }
 }
