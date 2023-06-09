@@ -26,6 +26,7 @@ public class UserService {
 	CookieUtility cookie;
 
     public User save(User u) {
+    	
     	return userRepository.save(u);
     }
 	
