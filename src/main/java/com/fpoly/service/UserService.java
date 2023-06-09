@@ -1,6 +1,7 @@
 package com.fpoly.service;
 
-import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,6 @@ public class UserService {
     public User save(User u) {
     	return userRepository.save(u);
     }
-
-	List<User> users;
 	
 	public void logout() {
 		session.remove("user");
@@ -46,7 +45,14 @@ public class UserService {
 				return true;
 			}
 		}
-
 		return false;
+	}
+	
+	public User edit(Integer userId) {
+		Optional<User> user = userRepository.findById(userId);
+		if(user.isPresent()) {
+			return user.get();
+		}
+		return null;
 	}
 }

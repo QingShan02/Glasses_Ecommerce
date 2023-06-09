@@ -2,11 +2,13 @@ package com.fpoly.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,21 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.entity.ProductType;
 import com.fpoly.entity.User;
 import com.fpoly.repository.ProductTypeRepository;
-import com.fpoly.service.UserService;
-
+import com.fpoly.repository.UserRepository;
 import com.fpoly.service.MailService;
 import com.fpoly.service.UserService;
+import com.fpoly.utility.CookieUtility;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import com.fpoly.utility.CookieUtility;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 	@Autowired
 	ProductTypeRepository pdtResp;
+	@Autowired
+	UserRepository userResp;
 	@Autowired
 	CookieUtility cookie;
 	@Autowired
@@ -48,17 +51,39 @@ public class HomeController {
 	@GetMapping("/index")
 	public String homePage(Model model) {
 		System.out.println(cookie.getValue("userId"));
-		return "/index";
+		return "index";
 	}
 
 	@GetMapping("/contact")
 	public String contact() {
-		return "/contact";
+		return "contact";
 	}
 
 	@GetMapping("/checkout")
 	public String checkout() {
-		return "/checkout";
+		return "checkout";
+	}
+
+	@GetMapping("/edit")
+	public String edit(Model model, @CookieValue(name = "userId") Integer userId) {
+		User user = userService.edit(userId);
+		if (user != null) {
+			model.addAttribute("userProfile", user);
+			return "edit";
+		}
+		return "redirect:/home/index";
+	}
+
+	@PostMapping("/edit")
+	public String edit(User userProfile, @CookieValue(name = "userId") Integer userId) {
+		if(userProfile != null) {
+			Optional<User> user = userResp.findById(userId);
+			user.get().setFullname(userProfile.getFullname());
+			user.get().setAddress(userProfile.getAddress());
+			user.get().setNumberPhone(userProfile.getNumberPhone());
+			userResp.save(user.get());			
+		}
+		return "redirect:/home/edit";
 	}
 
 	@GetMapping("/login")
@@ -117,11 +142,6 @@ public class HomeController {
 		}
 		model.addAttribute("message", "Mã xác thực chưa chính xác!");
 		return "authentication";
-	}
-
-	@GetMapping("/{id}")
-	public String sort() {
-		return "redirect:/{id}";
 	}
 
 	@ModelAttribute("categories")
