@@ -2,6 +2,7 @@ package com.fpoly.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -44,4 +45,7 @@ public class Cart implements Serializable {
 	@JoinColumn(name = "productdetailid", insertable = false, updatable = false)
 	@JsonIgnore
 	ProductDetail productDetail;
+
+	@OneToMany(mappedBy = "cart")
+	List<OrderDetail> orderDetails;
 }

@@ -19,8 +19,8 @@ public class OrderDetail {
     @Column(name = "orderid")
     private int orderId;
 
-    @Column(name = "productdetailid")
-    private Integer productDetailId;
+    @Column(name = "cartid")
+    private Integer cartId;
 
     @Column(name = "price")
     private double price;
@@ -32,4 +32,9 @@ public class OrderDetail {
     @JoinColumn(name = "orderid", insertable = false, updatable = false)
     @JsonIgnore
     Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "cartid", insertable = false, updatable = false)
+    @JsonIgnore
+    Cart cart;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -40,4 +41,7 @@ public class Order {
     @JoinColumn(name = "statusid", insertable = false, updatable = false)
     @JsonIgnore
     Status status;
+
+    @OneToMany(mappedBy = "order")
+    List<OrderDetail> orderDetails;
 }
