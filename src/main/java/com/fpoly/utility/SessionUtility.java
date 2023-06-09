@@ -51,4 +51,8 @@ public class SessionUtility {
 	public void remove(String name) {
 		session.removeAttribute(name);
 	}
+	
+	public void setMaxInactiveInterval(int s) {
+		session.setMaxInactiveInterval(s);
+	}
 }

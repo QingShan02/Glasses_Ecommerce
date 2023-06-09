@@ -22,10 +22,10 @@ import com.fpoly.repository.UserRepository;
 import com.fpoly.service.MailService;
 import com.fpoly.service.UserService;
 import com.fpoly.utility.CookieUtility;
+import com.fpoly.utility.SessionUtility;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/home")
@@ -38,13 +38,10 @@ public class HomeController {
 	CookieUtility cookie;
 	@Autowired
 	UserService userService;
-
 	@Autowired
-	HttpSession session;
-
+	SessionUtility session;
 	@Autowired
 	MailService mailservice;
-
 	@Autowired
 	HttpServletRequest req;
 
@@ -76,12 +73,12 @@ public class HomeController {
 
 	@PostMapping("/edit")
 	public String edit(User userProfile, @CookieValue(name = "userId") Integer userId) {
-		if(userProfile != null) {
+		if (userProfile != null) {
 			Optional<User> user = userResp.findById(userId);
 			user.get().setFullname(userProfile.getFullname());
 			user.get().setAddress(userProfile.getAddress());
 			user.get().setNumberPhone(userProfile.getNumberPhone());
-			userResp.save(user.get());			
+			userResp.save(user.get());
 		}
 		return "redirect:/home/edit";
 	}
@@ -108,6 +105,7 @@ public class HomeController {
 
 	@GetMapping("/register")
 	public String signup(Model model) {
+
 		return "register";
 	}
 
@@ -119,29 +117,91 @@ public class HomeController {
 			code = code + ranNum;
 		}
 		if (!user.equals(null)) {
-			session.setAttribute("numberCode", code);
-			session.setAttribute("user", user);
+			session.set("numberCode", code);
+			session.set("user", user);
 			mailservice.send(user.getEmail(), code);
-
+			session.setMaxInactiveInterval(120);
 		}
 		return "redirect:/home/register/auth";
 	}
 
 	@GetMapping("/register/auth")
-	public String auth() {
+	public String auth(Model model) {
+		String[] host = req.getRequestURI().split("/");
+		for (String w : host) {
+			if (w.equalsIgnoreCase("register")) {
+				model.addAttribute("uri", w);
+			}
+		}
 		return "authentication";
 	}
 
 	@PostMapping("/register/auth")
 	public String autho(@RequestParam("ma") String ma, Model model) {
-		System.out.println(session.getAttribute("numberCode"));
-		if (ma.equals(session.getAttribute("numberCode"))) {
-			User user = (User) session.getAttribute("user");
+		if (ma.equals(session.get("numberCode",""))) {
+			User user = (User) session.get("user");
 			userService.save(user);
-			return "redirect:/index";
+			return "redirect:/home/index";
 		}
 		model.addAttribute("message", "Mã xác thực chưa chính xác!");
+		return "redirect:" + req.getRequestURI();
+	}
+
+	@GetMapping("/resetpass/auth")
+	public String resetpass(Model model, @CookieValue(name = "userId") Integer userId) throws MessagingException {
+		String[] host = req.getRequestURI().split("/");
+		for (String w : host) {
+			if (w.equalsIgnoreCase("resetpass")) {
+				model.addAttribute("uri", w);
+			}
+		}
+		User user = userService.edit(userId);
+		String code = "";
+		for (int i = 0; i < 6; i++) {
+			String ranNum = String.valueOf(ThreadLocalRandom.current().nextInt(0, 9));
+			code = code + ranNum;
+		}
+
+		if (user != null) {
+			session.set("Coderesetpass", code);
+			session.setMaxInactiveInterval(120);
+			mailservice.send(user.getEmail(), code);
+		}
+		
+		System.out.println(user.getEmail());
+		System.out.println("Code Change: " + session.get("Coderesetpass",""));
+
 		return "authentication";
+	}
+
+	@PostMapping("/resetpass/auth")
+	public String resetpassq(@RequestParam("ma") String ma, Model model) {
+		if (ma.equals(session.get("Coderesetpass",""))) {
+			return "redirect:/home/resetpass";
+		}
+		model.addAttribute("message", "Mã xác thực chưa chính xác!");
+		return "redirect:/home/index";
+	}
+
+	@GetMapping("/resetpass")
+	public String resetpassw() {
+		return "resetpass";
+	}
+
+	@PostMapping("/resetpass")
+	public String resetpassa(@RequestParam("pass") Optional<String> pass,
+			@RequestParam("repass") Optional<String> repass, Model model,
+			@CookieValue(name = "userId") Integer userId) {
+		if (pass.get().equalsIgnoreCase(repass.get())) {
+			String passnew = pass.get();
+			Optional<User> u = userResp.findById(userId);
+			u.get().setPassword(passnew);
+			userService.save(u.get());
+			userService.logout();
+			return "redirect:/home/index";
+		}
+		model.addAttribute("message", "Mật khẩu mới chưa đúng!");
+		return "resetpass";
 	}
 
 	@ModelAttribute("categories")

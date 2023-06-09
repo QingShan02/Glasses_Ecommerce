@@ -57,51 +57,37 @@
 	<div
 		class="bg-secondary d-flex flex-column align-items-center justify-content-center"
 		style="min-height: 150px">
-		<h1 class="font-weight-semi-bold text-uppercase mb-3">REGISTER</h1>
+		<h1 class="font-weight-semi-bold text-uppercase mb-3">CHANGE PASSWORD</h1>
 		<div class="d-inline-flex">
 			<p class="m-0">
 				<a href="">Home</a>
 			</p>
 			<p class="m-0 px-2">-</p>
-			<p class="m-0">Register</p>
+			<p class="m-0">Change Password</p>
 		</div>
 	</div>
+
 	<!-- Page Header End -->
 
-	<div class="container">
+	<div class="container mt-2">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
-				<div class="form-container">
-					<form th:action="@{/home/register}" method="post"
-						th:object="${user}">
-						<div class="mb-3">
-							<label for="fullName" class="form-label">Họ và tên:</label> <input
-								type="text" class="form-control text-primary" id="fullName"
-								name="fullname" th:value="${fullname}" required>
+				<div class="container">
+					<form th:action="@{/home/resetpass}" method="POST" >
+						<div class="mb-3" >
+							<label class="form-label">Nhập Mật Khẩu Mới:</label> 
+							<input type="password" class="form-control text-primary" th:name="pass" required>
+						</div>
+						<div class="mb-3" >
+							<label class="form-label">Xác Nhận Mật Khẩu Mới:</label> 
+							<input type="password" class="form-control text-primary" th:name="repass" required>
 						</div>
 						<div class="mb-3">
-							<label for="email" class="form-label">Email:</label> <input
-								type="email" class="form-control text-primary" id="email"
-								name="email" th:value="${email}" required>
+							<label class="form-label text-danger" th:text="${message}" th:if=${message}></label>
 						</div>
-						<div class="mb-3">
-							<label for="email" class="form-label">Mật khẩu:</label> <input
-								type="password" class="form-control text-primary" id="password"
-								name="password" th:value="${password}" required>
-						</div>
-						<div class="mb-3">
-							<label for="phoneNumber" class="form-label">Số điện
-								thoại:</label> <input type="tel" class="form-control text-primary"
-								id="numberPhone" name="numberPhone" th:value="${numberPhone}"
-								required>
-						</div>
-						<div class="mb-3">
-							<label for="address" class="form-label">Địa chỉ:</label>
-							<textarea class="form-control text-primary" id="address"
-								name="address" th:value="${address}" rows="2" required></textarea>
-						</div>
-						<button type="submit" class="btn btn-primary text-white">Sign
-							Up</button>
+
+						<button type="submit" class="btn btn-primary text-white">Accept
+						</button>
 					</form>
 				</div>
 			</div>
