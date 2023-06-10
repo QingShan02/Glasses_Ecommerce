@@ -1,14 +1,13 @@
 package com.fpoly.repository;
 
-import java.util.List;
-
+import com.fpoly.entity.Cart;
 import com.fpoly.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.fpoly.entity.Product;
+import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-	List<Product> findByProductTypeId(String id);
+public interface ImageRepository extends JpaRepository<Image, Integer> {
+    List<Image> findByProductDetail(Integer id);
 }

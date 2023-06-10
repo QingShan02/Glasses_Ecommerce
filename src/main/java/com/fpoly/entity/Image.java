@@ -1,13 +1,9 @@
 package com.fpoly.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +24,11 @@ public class Image implements Serializable {
 	
 	@Column(name = "link")
 	private String link;
-	
+
 	@Column(name = "productdetailid")
-	private int productDetailId;
+	private Integer productdetailId;
+
+	@ManyToOne
+	@JoinColumn(name = "productdetailid", insertable = false, updatable = false)
+	ProductDetail productDetail;
 }

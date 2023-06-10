@@ -89,7 +89,8 @@ public class HomeController {
 	}
 
 	@PostMapping("/login")
-	public String checkLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
+	public String checkLogin(Model model, @RequestParam("username") String username,
+			@RequestParam("password") String password) {
 		boolean checkLogin = userService.login(username, password);
 		if (checkLogin == false) {
 			return "login";
@@ -138,7 +139,7 @@ public class HomeController {
 
 	@PostMapping("/register/auth")
 	public String autho(@RequestParam("ma") String ma, Model model) {
-		if (ma.equals(session.get("numberCode",""))) {
+		if (ma.equals(session.get("numberCode", ""))) {
 			User user = (User) session.get("user");
 			userService.save(user);
 			return "redirect:/home/index";
@@ -167,16 +168,16 @@ public class HomeController {
 			session.setMaxInactiveInterval(120);
 			mailservice.send(user.getEmail(), code);
 		}
-		
+
 		System.out.println(user.getEmail());
-		System.out.println("Code Change: " + session.get("Coderesetpass",""));
+		System.out.println("Code Change: " + session.get("Coderesetpass", ""));
 
 		return "authentication";
 	}
 
 	@PostMapping("/resetpass/auth")
 	public String resetpassq(@RequestParam("ma") String ma, Model model) {
-		if (ma.equals(session.get("Coderesetpass",""))) {
+		if (ma.equals(session.get("Coderesetpass", ""))) {
 			return "redirect:/home/resetpass";
 		}
 		model.addAttribute("message", "Mã xác thực chưa chính xác!");
@@ -213,5 +214,9 @@ public class HomeController {
 	@ModelAttribute("userId")
 	public String getUserId() {
 		return cookie.getValue("userId");
+	}
+	@ModelAttribute("isAdmin")
+	public String checkAdmin() {
+		return cookie.getValue("isAdmin");
 	}
 }

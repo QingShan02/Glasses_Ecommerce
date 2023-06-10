@@ -41,8 +41,10 @@ public class UserService {
 			if (user.getPassword().equals(password)) {
 				session.set("user", user);
 				System.out.println(session.get("user"));
-				Cookie ck = cookie.add("userId", String.valueOf(user.getId()), Hours.HOURS_ACCOUNT);
-				resp.addCookie(ck);
+
+				resp.addCookie(cookie.add("userId", String.valueOf(user.getId()), Hours.HOURS_ACCOUNT));
+				resp.addCookie(cookie.add("isAdmin", String.valueOf(user.getIsAdmin()), Hours.HOURS_ACCOUNT));
+
 				return true;
 			}
 		}

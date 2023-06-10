@@ -22,6 +22,7 @@ public class OrderController {
     public String ordering(Model model, Order order, HttpServletRequest req) {
         orderService.ordering(order);
         req.setAttribute("orderId", order.getId());
+
         model.addAttribute("orderId", order.getId());
 
         return "forward:/orderDetail/save";

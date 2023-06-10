@@ -43,5 +43,5 @@ public class User implements Serializable {
 	private String password;
 	
 	@Column(name = "isadmin")
-	private boolean isAdmin;
+	private Boolean isAdmin;
 }
