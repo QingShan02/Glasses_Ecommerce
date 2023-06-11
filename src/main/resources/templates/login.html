@@ -84,6 +84,7 @@
 						<label for="password">Password:</label> <input type="password"
 							class="form-control text-primary" id="password" name="password" required>
 					</div>
+					<p th:if="${message}" th:text="${message}" class="text-danger"></p>
 					<button type="submit" class="btn btn-primary text-white">Đăng
 						nhập</button>
 				</form>

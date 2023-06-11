@@ -55,4 +55,6 @@ public class SessionUtility {
 	public void setMaxInactiveInterval(int s) {
 		session.setMaxInactiveInterval(s);
 	}
+	
+	
 }

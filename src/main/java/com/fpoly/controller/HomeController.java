@@ -84,7 +84,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login( @RequestParam(name="message", required = false) String message,Model model) {
+		model.addAttribute("message", message);
 		return "login";
 	}
 
@@ -93,6 +94,7 @@ public class HomeController {
 			@RequestParam("password") String password) {
 		boolean checkLogin = userService.login(username, password);
 		if (checkLogin == false) {
+			model.addAttribute("message", "Username or Password is Invalid");
 			return "login";
 		}
 		return "redirect:/home/index";

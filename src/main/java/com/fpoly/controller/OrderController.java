@@ -1,7 +1,5 @@
 package com.fpoly.controller;
 
-import com.fpoly.utility.CookieUtility;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpoly.entity.Order;
 import com.fpoly.service.OrderService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/order")
