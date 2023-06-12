@@ -212,13 +212,4 @@ public class HomeController {
 		List<ProductType> list = pdtResp.findAll();
 		return list;
 	}
-
-	@ModelAttribute("userId")
-	public String getUserId() {
-		return cookie.getValue("userId");
-	}
-	@ModelAttribute("isAdmin")
-	public String checkAdmin() {
-		return cookie.getValue("isAdmin");
-	}
 }

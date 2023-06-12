@@ -69,8 +69,4 @@ public class ProductController {
 		return "shop";
 	}
 
-	@ModelAttribute("list")
-	public List<ProductType> list() {
-		return productTypeService.getAll();
-	}
 }
