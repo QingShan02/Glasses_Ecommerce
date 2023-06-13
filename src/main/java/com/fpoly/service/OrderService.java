@@ -7,6 +7,9 @@ import com.fpoly.utility.CookieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class OrderService {
     @Autowired
@@ -17,6 +20,14 @@ public class OrderService {
 
     @Autowired
     CookieUtility cookie;
+
+    public Optional<Order> getById(Integer orderId) {
+        return orderRepository.findById(orderId);
+    }
+
+    public List<Order> getAll() {
+        return orderRepository.findAll();
+    }
 
     public void ordering(Order order) {
         Integer userId = Integer.parseInt(cookie.getValue("userId"));

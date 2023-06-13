@@ -42,6 +42,16 @@ public class Order {
     @JsonIgnore
     Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "userid", insertable = false, updatable = false)
+    @JsonIgnore
+    User user;
+
+    @ManyToOne
+    @JoinColumn(name = "paymentmethodid", insertable = false, updatable = false)
+    @JsonIgnore
+    PaymentMethod paymentMethod;
+
     @OneToMany(mappedBy = "order")
     List<OrderDetail> orderDetails;
 }
